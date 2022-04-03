@@ -6,3 +6,6 @@
 * C: 
   * To compile: `gcc -Wall -lm calce.c`
   * To run: `./a.out`
+* Fortran:
+  * To compile: `gfortran -Wall calce.f95`
+  * To run: `./a.out`
