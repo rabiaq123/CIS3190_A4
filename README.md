@@ -9,3 +9,6 @@
 * Fortran:
   * To compile: `gfortran -Wall calce.f95`
   * To run: `./a.out`
+* Ada:
+  * To compile: `gnatmake -Wall calce.adb`
+  * To run: `./calce`

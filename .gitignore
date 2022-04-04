@@ -1,2 +1,8 @@
+# output and test files
 *.txt
+# Fortran and C executables
 *.out
+# Ada executables
+*.ali
+*.o
+calce
