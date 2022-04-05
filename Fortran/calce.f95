@@ -71,8 +71,8 @@ subroutine ecalculation(numDec, result)
 
     allocate(coef(2:m))
     coef = 1 ! set all array elements to 1
-    result(1) = 2 ! e's value begins with a 2
 
+    result(1) = 2 ! e's value begins with a 2
     do i = 2, numDec + 1 ! upper bound of for loop is inclusive
         carry = 0
         do j = m, 2, -1 ! starting and ending values of loop index followed by the increment
@@ -82,6 +82,8 @@ subroutine ecalculation(numDec, result)
         end do
         result(i) = carry
     end do
+
+    deallocate(coef)
 
     return
 end subroutine ecalculation

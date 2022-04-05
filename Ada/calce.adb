@@ -12,7 +12,7 @@ with Ada.Strings.Fixed; use Ada.Strings.Fixed;
 
 
 procedure calce is
-    type any_list is array (integer range <>) of integer;
+    type any_list is array (integer range <>) of integer; -- upper and lower bounds are inclusive
     filename: unbounded_string;
     numDigits: integer;
     result: any_list(0..1999);
@@ -75,27 +75,29 @@ procedure calce is
         test: constant float := float(numDec + 1) * 2.30258509;
         m: float := 4.0 + 1.0;
         carry, temp: integer := 0;
-        coef: any_list(2..2000); -- hardcoded upper bound value; no particular reason for choosing 2000
     begin
         -- find upper bound for coef array and set all elements to 1
         while (test >= (m * (log(m) - 1.0) + 0.5 * log(6.2831852 * m))) loop
             m := m + 1.0;
         end loop;
-        for i in 2..integer(m) loop
-            coef(i) := 1;
-        end loop;
-
-        -- calculate and store digits in result array
-        result(0) := 2; -- e's value begins with a 2
-        for i in 1..numDec loop
-            carry := 0;
-            for j in reverse 2..integer(m) loop
-                temp := coef(j) * 10 + carry;
-                carry := temp / (j);
-                coef(j) := temp - carry * (j);
+        declare
+            coef: any_list(2..integer(m));
+        begin
+            for i in 2..integer(m) loop
+                coef(i) := 1;
             end loop;
-            result(i) := carry;
-        end loop;
+            -- calculate and store digits in result array
+            result(0) := 2; -- e's value begins with a 2
+            for i in 1..numDec loop -- upper bound of for loop is inclusive
+                carry := 0;
+                for j in reverse 2..integer(m) loop
+                    temp := coef(j) * 10 + carry;
+                    carry := temp / (j);
+                    coef(j) := temp - carry * (j);
+                end loop;
+                result(i) := carry;
+            end loop;
+        end;
     end ecalculation;
 
 

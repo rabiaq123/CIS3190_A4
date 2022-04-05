@@ -41,10 +41,9 @@ void keepe(int *result, int numDigits, char filename[100]) {
     fclose(fptr);
 }
 
+
 // calculate e
 // NOTE: numDec and result are n and d[] respectively, from the ALGOL-60 algo
-// NOTE: m-2 is used in coef[] calculations because C array indices start from 0 
-    // (can't have start index of 2 as was done in the algo provided)
 // ASK: should the last digit be rounded?
 void ecalculation(int numDec, int *result) {
     float test = (numDec + 1) * 2.30258509;
@@ -57,21 +56,25 @@ void ecalculation(int numDec, int *result) {
         m += 1;
     } while (test >= (m * (log(m) - 1.0) + 0.5 * log(6.2831852 * m)));
 
-    int *coef = (int *)calloc(m-2, sizeof(int));
-    for (int i = 0; i < m-2; i++) coef[i] = 1; // set all array elements to 1
-    result[0] = 2; // e's value begins with a 2
+    int *coef = (int *)calloc(m-1, sizeof(int)); // indices range from 0 to (m-2), so there are (m-2)+1 elements
+    for (int i = 0; i < m-1; i++) coef[i] = 1; // set all array elements to 1
 
+    result[0] = 2; // e's value begins with a 2
     for (int i = 1; i <= numDec; i++) {
         carry = 0;
         for (int j = m-2; j >= 0; j--) {
-            // not using [j+2] to access coeff elements because it has already been accounted for with the m-2
             temp = coef[j] * 10 + carry;
-            // using j+2 below as it affects the value of carry and coef[j], since the algo assumes a minimum value of 2 for j 
+            // using j+2 below as it affects the value of carry and coef[j]
+            // algo gives j a minimum value of 2 because it makes the coef array start at index 2
+            // since C arrays start indexing from 0, j reaches 0 in the final loop iteration.
             carry = temp / (j+2);
             coef[j] = temp - carry * (j+2);
         }
         result[i] = carry;
     }
+
+    free(coef);
+    coef = NULL;
 }
 
 
