@@ -5,7 +5,15 @@
 program calce 
     implicit none
 
-    ! variables
+    call main()
+
+    contains
+
+
+! main wrapper program
+subroutine main()
+    implicit none
+
     character(len=100) :: filename
     integer, dimension(2000) :: result
     integer :: numDigits
@@ -16,7 +24,8 @@ program calce
     call keepe(result, numDigits, filename)
     call printStatus()
 
-    contains
+    return
+end subroutine main
 
 
 ! store value of e in user's requested ASCII file
@@ -31,7 +40,7 @@ subroutine keepe(result, numDigits, filename)
     ! open output file for printing
     open(unit=25,file=filename,status='replace',action='write')
     
-    do while (i < numDigits+1)
+    do while (i <= numDigits)
         if (i == 2) then
             write(25,"(A)",advance='no') '.'
         end if
