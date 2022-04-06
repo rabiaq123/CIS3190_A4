@@ -3,6 +3,7 @@
 # April 8, 2022
 
 import math
+import os
 
 
 # print program header/information
@@ -66,10 +67,15 @@ def ecalculation(numDec, result):
     return result
 
 
-# get (1) number of sig digits required for e calculation and (2) filename to store value in
+# get num sig digits and filename
 def getUserInput():
+    # get num sig digits
     numDigits = int(input("Enter number of significant digits you would like to see in the result: "))
+    # get filename and display warning message for pre-existing output file
     filename = input("Enter the name of the file in which you would like to store the calculated value of e: ")
+    if os.path.exists(filename):
+        print("An output file with this name already exists. Overwriting file...", end="\n")
+
     return numDigits, filename
 
 

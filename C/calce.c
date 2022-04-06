@@ -3,10 +3,11 @@
  * April 8, 2022
  */
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 
 // print program header/information
@@ -84,14 +85,19 @@ int main() {
 
     printHeader();
     
-    // get user input
+    // get num sig digits
     printf("Enter number of significant digits you would like to see in the result: ");
     scanf("%d", &numDigits);
+
+    // get filename and display warning message for pre-existing output file
     printf("Enter the name of the file in which you would like to store the calculated value of e: ");
     scanf("%s", filename);
+    if (access(filename, F_OK) == 0) {
+        printf("An output file with this name already exists. Overwriting file...\n");
+    }
 
     // calculate e and store in file
-    ecalculation(numDigits-1, result);
+    ecalculation(numDigits - 1, result);
     keepe(result, numDigits, filename);
 
     printStatus(filename);

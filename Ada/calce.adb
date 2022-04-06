@@ -9,6 +9,7 @@ with Ada.Strings; use Ada.Strings;
 with ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 with Ada.Numerics.Elementary_Functions; use Ada.Numerics.Elementary_Functions;
 with Ada.Strings.Fixed; use Ada.Strings.Fixed;
+with ada.directories; use ada.directories;
 
 
 procedure calce is
@@ -38,14 +39,20 @@ procedure calce is
     end printStatus;
 
 
-    -- get (1) number of sig digits required for e calculation and (2) filename to store value in
+    -- get num sig digits and filename
     procedure getUserInput(numDigits: out integer; filename: in out unbounded_string) is
     begin
+        -- get num sig digits
         put("Enter number of significant digits you would like to see in the result: ");
         get(numDigits);
         skip_line; -- skip newline that will come from enter on previous input
+    
+        -- get filename and display warning message for pre-existing output file
         put("Enter the name of the file in which you would like to store the calculated value of e: ");
         get_line(filename);
+        if exists (to_string (filename)) then
+            put_line("An output file with this name already exists. Overwriting file...");
+        end if;
     end getUserInput;
 
 

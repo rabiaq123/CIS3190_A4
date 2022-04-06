@@ -20,8 +20,8 @@ subroutine main()
 
     call printHeader()
     call getUserInput(numDigits, filename)
-    call ecalculation(numDigits-1, result)
-    call keepe(result, numDigits, filename)
+    call ecalculation(numDigits-1, result) ! calculate e
+    call keepe(result, numDigits, filename) ! store result in file
     call printStatus()
 
     return
@@ -123,17 +123,25 @@ subroutine printHeader()
 end subroutine printHeader
 
 
-! get (1) number of sig digits required for e calculation and (2) filename to store value in
+! get num sig digits and filename
 subroutine getUserInput(numDigits, filename)
     implicit none
 
     integer, intent(out) :: numDigits
     character(len=100), intent(out) :: filename
+    logical :: fileExists
 
+    ! get num sig digits
     write(*,"(A)",advance='no') 'Enter number of significant digits you would like to see in the result: '
     read(*,*) numDigits
+
+    ! get filename and display warning message for pre-existing output file
     write(*,"(A)",advance='no') 'Enter the name of the file in which you would like to store the calculated value of e: '
     read(*,*) filename
+    inquire(file=filename, exist=fileExists)
+    if (fileExists .eqv. .true.) then 
+        write (*,"(A)") 'An output file with this name already exists. Overwriting file...'
+    end if
 
     return
 end subroutine getUserInput
