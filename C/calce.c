@@ -44,7 +44,6 @@ void keepe(int *result, int numDigits, char filename[100]) {
 
 // calculate e
 // NOTE: numDec and result are n and d[] respectively, from the ALGOL-60 algo
-// ASK: should the last digit be rounded?
 void ecalculation(int numDec, int *result) {
     float test = (numDec + 1) * 2.30258509;
     int m = 4;

@@ -39,7 +39,6 @@ def keepe(result, numDigits, filename):
 
 # calculating e
 # NOTE: numDec and result are n and d[] respectively, from the ALGOL-60 algo
-# ASK: should the last digit be rounded?
 def ecalculation(numDec, result):
     test = (numDec + 1) * 2.30258509
     m = 4 + 1

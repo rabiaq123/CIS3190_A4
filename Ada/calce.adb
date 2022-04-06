@@ -70,7 +70,6 @@ procedure calce is
 
     -- calculate e
     -- NOTE: numDec and result are n and d[] respectively, from the ALGOL-60 algo
-    -- ASK: should the last digit be rounded?
     procedure ecalculation(numDec: in integer; result: in out any_list) is
         test: constant float := float(numDec + 1) * 2.30258509;
         m: float := 4.0 + 1.0;

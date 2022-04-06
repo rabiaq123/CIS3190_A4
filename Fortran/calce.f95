@@ -56,7 +56,6 @@ end subroutine keepe
 
 ! calculate e
 ! NOTE: numDec and result are n and d[] respectively, from the ALGOL-60 algo
-! ASK: should the last digit be rounded?
 subroutine ecalculation(numDec, result)
     implicit none
 
