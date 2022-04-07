@@ -107,10 +107,17 @@ procedure calce is
     end ecalculation;
 
 
+    -- main wrapper program
+    procedure main is
+    begin
+        printHeader;
+        getUserInput(numDigits, filename);
+        ecalculation(numDigits-1, result);
+        keepe(result, numDigits, filename);
+        printStatus(filename);
+    end main;
+
+
 begin
-    printHeader;
-    getUserInput(numDigits, filename);
-    ecalculation(numDigits-1, result);
-    keepe(result, numDigits, filename);
-    printStatus(filename);
+    main;
 end calce;
