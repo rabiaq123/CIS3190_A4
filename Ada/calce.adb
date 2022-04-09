@@ -48,6 +48,7 @@ procedure calce is
         skip_line; -- skip newline that will come from enter on previous input
     
         -- get filename and display warning message for pre-existing output file
+        put_line("");
         put("Enter the name of the file in which you would like to store the calculated value of e: ");
         get_line(filename);
         if exists (to_string (filename)) then

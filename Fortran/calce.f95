@@ -136,7 +136,7 @@ subroutine getUserInput(numDigits, filename)
     read(*,*) numDigits
 
     ! get filename and display warning message for pre-existing output file
-    write(*,"(A)",advance='no') 'Enter the name of the file in which you would like to store the calculated value of e: '
+    write(*,"(/,A)",advance='no') 'Enter the name of the file in which you would like to store the calculated value of e: '
     read(*,*) filename
     inquire(file=filename, exist=fileExists)
     if (fileExists .eqv. .true.) then 

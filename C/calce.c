@@ -40,6 +40,7 @@ void keepe(int *result, int numDigits, char filename[100]) {
         }
         fprintf(fptr, "%d", result[i]);
     }
+    fprintf(fptr, "\n");
 
     fclose(fptr);
 }
