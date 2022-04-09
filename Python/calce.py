@@ -33,6 +33,7 @@ def keepe(result, numDigits, filename):
             if i == 1:
                 file.write(".")
             file.write(str(result[i]))
+    file.write("\n")
 
     file.close()
     return
@@ -69,10 +70,21 @@ def ecalculation(numDec, result):
 
 # get num sig digits and filename
 def getUserInput():
+    isDigit = False
+    digits = ""
+
     # get num sig digits
-    numDigits = int(input("Enter number of significant digits you would like to see in the result: "))
+    while isDigit == False:
+        isDigit = True # reset to True for every iteration
+        digits = input("Enter number of significant digits you would like to see in the result: ")
+        if digits.isdigit() == False:
+            isDigit = False
+            print("Error: input must be numeric and non-negative.", end="\n")
+
+    numDigits = int(digits) # convert string to integer
+
     # get filename and display warning message for pre-existing output file
-    filename = input("Enter the name of the file in which you would like to store the calculated value of e: ")
+    filename = input("\nEnter the name of the file in which you would like to store the calculated value of e: ")
     if os.path.exists(filename):
         print("An output file with this name already exists. Overwriting file...", end="\n")
 

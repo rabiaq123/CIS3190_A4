@@ -4,10 +4,12 @@
  */
 
 #include <math.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <ctype.h>
 
 
 // print program header/information
@@ -78,23 +80,51 @@ void ecalculation(int numDec, int *result) {
 }
 
 
-int main() {
-    int result[2000];
+// get num sig digits and perform error checking on user input
+int getNumSigDigits() {
+    bool isDigit;
+    char digits[4];
     int numDigits;
-    char filename[100];
 
-    printHeader();
-    
-    // get num sig digits
-    printf("Enter number of significant digits you would like to see in the result: ");
-    scanf("%d", &numDigits);
+    while (!isDigit) {
+        isDigit = true; // reset to true for every iteration
+        memset(digits, 0, 4); // reset to NULL for each input
+        printf("Enter number of significant digits you would like to see in the result: ");
+        scanf("%s", digits);
+        for (int i = 0; i < strlen(digits); i++) {
+            if (!isdigit(digits[i])) {
+                isDigit = false;
+            }
+        }
+        if (!isDigit) printf("Error: input must be numeric and non-negative.\n");
+    }
+    numDigits = (int)strtol(digits, (char **)NULL, 10); // convert string to integer
 
-    // get filename and display warning message for pre-existing output file
-    printf("Enter the name of the file in which you would like to store the calculated value of e: ");
+    return numDigits;
+}
+
+
+// get filename and display warning message for pre-existing output file
+void getFilename(char *filename) {
+    printf("\nEnter the name of the file in which you would like to store the calculated value of e: ");
     scanf("%s", filename);
     if (access(filename, F_OK) == 0) {
         printf("An output file with this name already exists. Overwriting file...\n");
     }
+}
+
+
+// wrapper main function
+int main() {
+    int result[2000];
+    char filename[100];
+    int numDigits;
+
+    printHeader();
+
+    // get user input
+    numDigits = getNumSigDigits();
+    getFilename(filename);
 
     // calculate e and store in file
     ecalculation(numDigits - 1, result);
